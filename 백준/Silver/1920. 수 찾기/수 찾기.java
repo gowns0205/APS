@@ -1,0 +1,45 @@
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.util.Arrays;
+import java.util.StringTokenizer;
+
+public class Main {
+
+	static int arr[];
+
+	public static void main(String[] args) throws IOException {
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+		int N = Integer.parseInt(br.readLine());
+		arr = new int[N];
+		StringTokenizer st = new StringTokenizer(br.readLine());
+		for (int i = 0; i < N; i++) {
+			arr[i] = Integer.parseInt(st.nextToken());
+		}
+		Arrays.sort(arr);
+		int M = Integer.parseInt(br.readLine());
+		StringTokenizer st2 = new StringTokenizer(br.readLine());
+		StringBuilder sb = new StringBuilder();
+		for (int i = 0; i < M; i++) {
+			int num = Integer.parseInt(st2.nextToken());
+			int result = (binarySearch(num, 0, N - 1) != -1) ? 1 : 0;
+			sb.append(result).append("\n");
+		}
+		System.out.println(sb);
+	}
+
+	static int binarySearch(int key, int low, int high) {
+		int mid;
+		if (low <= high) {
+			mid = (low + high) / 2;
+			if (key == arr[mid]) {
+				return mid;
+			} else if (key < arr[mid]) {
+				return binarySearch(key, low, mid - 1);
+			} else {
+				return binarySearch(key, mid + 1, high);
+			}
+		}
+		return -1;
+	}
+}
