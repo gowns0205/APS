@@ -11,7 +11,7 @@ public class Main {
 	static long idx = 0;
 	static ArrayList<Integer>[] edge;
 	static boolean[] visited;
-	static long sum = 0;
+	static long sum = 0; // int 범위에선 오버플로우 발생한다. long으로 써야함
 	static long d_t = 0;
 
 	public static void main(String[] args) throws IOException {
