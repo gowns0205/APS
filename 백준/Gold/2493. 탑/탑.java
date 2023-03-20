@@ -1,7 +1,6 @@
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.Arrays;
 import java.util.PriorityQueue;
 import java.util.Stack;
 import java.util.StringTokenizer;
@@ -16,13 +15,13 @@ public class Main {
 		for (int i = 0; i < N; i++) 
 			arr[i] = Integer.parseInt(st.nextToken());
 		
-
 		int[] ans = new int[N];
-		PriorityQueue<node> pq = new PriorityQueue<>();
+//		PriorityQueue<node> pq = new PriorityQueue<>();
+		Stack<node> pq = new Stack<>();
 		for (int i = N-1; i >= 0; i--) {
 			while (!pq.isEmpty()) {
 				if (arr[i] >= pq.peek().height)
-					ans[pq.poll().idx] = i+1;
+					ans[pq.pop().idx] = i+1;
 				else break;
 			}
 			pq.add(new node(i, arr[i]));
@@ -33,16 +32,17 @@ public class Main {
 		System.out.println(sb);
 	}
 	
-	static class node implements Comparable<node>{
+	static class node {
 		int idx;
 		int height;
 		public node(int idx, int height) {
 			this.idx = idx;
 			this.height = height;
 		}
-		@Override
-		public int compareTo(node o) {
-			return this.height - o.height;
-		}
+//		@Override
+//		public int compareTo(node o) {
+//			if (this.height - o.height < 0) return -1;
+//			return 1;
+//		}
 	}
 }
