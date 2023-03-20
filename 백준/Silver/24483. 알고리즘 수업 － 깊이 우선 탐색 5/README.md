@@ -1,0 +1,36 @@
+# [Silver II] 알고리즘 수업 - 깊이 우선 탐색 5 - 24483 
+
+[문제 링크](https://www.acmicpc.net/problem/24483) 
+
+### 성능 요약
+
+메모리: 88520 KB, 시간: 916 ms
+
+### 분류
+
+그래프 이론, 그래프 탐색, 정렬, 깊이 우선 탐색
+
+### 문제 설명
+
+<p style="user-select: auto;">오늘도 서준이는 깊이 우선 탐색(DFS) 수업 조교를 하고 있다. 아빠가 수업한 내용을 학생들이 잘 이해했는지 문제를 통해서 확인해보자.</p>
+
+<p style="user-select: auto;"><em style="user-select: auto;">N</em>개의 정점과 <em style="user-select: auto;">M</em>개의 간선으로 구성된 무방향 그래프(undirected graph)가 주어진다. 정점 번호는 1번부터 <em style="user-select: auto;">N</em>번이고 모든 간선의 가중치는 1이다. 정점 <em style="user-select: auto;">R</em>에서 시작하여 깊이 우선 탐색으로 만들어 지는 트리를 깊이 우선 탐색 트리라고 하자. 깊이 우선 탐색 트리에 있는 <em style="user-select: auto;">i</em>번 노드의 깊이(depth)를 <em style="user-select: auto;">d<sub style="user-select: auto;">i</sub></em>라고 하자. 시작 정점 <em style="user-select: auto;">R</em>의 깊이는 0이고 방문 되지 않는 노드의 깊이는 -1이다. 정점 <em style="user-select: auto;">R</em>에서 시작하여 깊이 우선 탐색으로 노드를 방문할 경우 <em style="user-select: auto;">i</em>번 노드의 방문 순서를 <em style="user-select: auto;">t<sub style="user-select: auto;">i</sub></em>라고 하자. 시작 정점의 방문 순서는 1이고 시작 정점에서 방문할 수 없는 노드는 0이다. 모든 노드에 대한 <em style="user-select: auto;">d<sub style="user-select: auto;">i</sub></em> × <em style="user-select: auto;">t<sub style="user-select: auto;">i</sub></em> 값의 합을 구해보자.</p>
+
+<p style="user-select: auto;">깊이 우선 탐색 의사 코드는 다음과 같다. 인접 정점은 <strong style="user-select: auto;">오름차순</strong>으로 방문한다.</p>
+
+<pre style="user-select: auto;">dfs(V, E, R) {  # V : 정점 집합, E : 간선 집합, R : 시작 정점
+    visited[R] <- YES;  # 시작 정점 R을 방문 했다고 표시한다.
+    for each x ∈ E(R)  # E(R) : 정점 R의 인접 정점 집합.(정점 번호를 <strong style="user-select: auto;">오름차순</strong>으로 방문한다)
+        if (visited[x] = NO) then dfs(V, E, x);
+}</pre>
+
+### 입력 
+
+ <p style="user-select: auto;">첫째 줄에 정점의 수 <em style="user-select: auto;">N</em> (5 ≤ <em style="user-select: auto;">N</em> ≤ 100,000), 간선의 수 <em style="user-select: auto;">M</em> (1 ≤ <em style="user-select: auto;">M</em> ≤ 200,000), 시작 정점 <em style="user-select: auto;">R</em> (1 ≤ <em style="user-select: auto;">R</em> ≤ <em style="user-select: auto;">N</em>)이 주어진다.</p>
+
+<p style="user-select: auto;">다음 <em style="user-select: auto;">M</em>개 줄에 간선 정보 <code style="user-select: auto;"><em style="user-select: auto;">u</em> <em style="user-select: auto;">v</em></code>가 주어지며 정점 <em style="user-select: auto;">u</em>와 정점 <em style="user-select: auto;">v</em>의 가중치 1인 양방향 간선을 나타낸다. (1 ≤ <em style="user-select: auto;">u</em> < <em style="user-select: auto;">v</em> ≤ <em style="user-select: auto;">N</em>, <em style="user-select: auto;">u</em> ≠ <em style="user-select: auto;">v</em>) 모든 간선의 (<em style="user-select: auto;">u</em>, <em style="user-select: auto;">v</em>) 쌍의 값은 서로 다르다.</p>
+
+### 출력 
+
+ <p style="user-select: auto;">첫째 줄에 모든 노드에 대한 <em style="user-select: auto;">d<sub style="user-select: auto;">i</sub></em> × <em style="user-select: auto;">t<sub style="user-select: auto;">i</sub></em> 값의 합을 출력한다.</p>
+
