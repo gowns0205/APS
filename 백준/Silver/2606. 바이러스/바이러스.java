@@ -1,52 +1,42 @@
 import java.io.BufferedReader;
+import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.Queue;
 import java.util.StringTokenizer;
 
 public class Main {
-	static boolean[] visited;
-	
-	public static void main(String[] args) throws Exception{
+	public static void main(String[] args) throws NumberFormatException, IOException {
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 		int N = Integer.parseInt(br.readLine());
-		int E = Integer.parseInt(br.readLine());
-		ArrayList<Integer>[] graph = new ArrayList[N+1];
-		for (int i = 0; i <= N; i++) 
-			graph[i] = new ArrayList<>();
-	
-		
-		for (int i = 0; i < E; i++) {
-			StringTokenizer st = new StringTokenizer(br.readLine());
-			int s = Integer.parseInt(st.nextToken());
-			int e = Integer.parseInt(st.nextToken());
-			graph[s].add(e);
-			graph[e].add(s);
+		int M = Integer.parseInt(br.readLine());
+		boolean[] visited = new boolean[N + 1];
+		ArrayList<Integer>[] edges = new ArrayList[N + 1];
+		for (int i = 1; i <= N; i++) {
+			edges[i] = new ArrayList<Integer>();
 		}
-		
-		visited = new boolean[N+1];
-	
+		for (int i = 1; i <= M; i++) {
+			StringTokenizer st = new StringTokenizer(br.readLine());
+			int u = Integer.parseInt(st.nextToken());
+			int v = Integer.parseInt(st.nextToken());
+			edges[u].add(v);
+			edges[v].add(u);
+		}
 		Queue<Integer> queue = new LinkedList<>();
 		queue.add(1);
 		visited[1] = true;
-		
-		while(!queue.isEmpty()) {
+		int com = -1;
+		while (!queue.isEmpty()) {
 			int cur = queue.poll();
-			
-			for (int next : graph[cur]) {
+			com++;
+			for (int next : edges[cur]) {
 				if (!visited[next]) {
 					visited[next] = true;
 					queue.add(next);
 				}
 			}
 		}
-		
-		int cnt = 0;
-		for (int i = 2; i <= N; i++) {
-			if (visited[i]) cnt++;
-		}
-		System.out.println(cnt);
+		System.out.println(com);
 	}
 }
