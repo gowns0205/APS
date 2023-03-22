@@ -10,8 +10,10 @@ public class Main {
 		long hash = 0;
 		for (int i = 0; i < s.length(); i++) {
 			long num = s.charAt(i) - 'a' + 1;
+			//System.out.println("num: " + num);
 			hash += num * (long) Math.pow(31, i);
 		}
-		System.out.println(hash);
+		long M = 1234567891;
+		System.out.println(hash % M);
 	}
 }
