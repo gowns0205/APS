@@ -8,12 +8,14 @@ public class Main {
 		br.readLine();
 		String s = br.readLine();
 		long hash = 0;
+		long R = 1;
+		long M = 1234567891;
 		for (int i = 0; i < s.length(); i++) {
 			long num = s.charAt(i) - 'a' + 1;
-			//System.out.println("num: " + num);
-			hash += num * (long) Math.pow(31, i);
+			// System.out.println("num: " + num);
+			hash += (num * R) % M;
+			R = (R * 31) % M;
 		}
-		long M = 1234567891;
-		System.out.println(hash % M);
+		System.out.println(hash);
 	}
 }
