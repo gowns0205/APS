@@ -9,8 +9,8 @@ public class Main {
 		String s = br.readLine();
 		long hash = 0;
 		for (int i = 0; i < s.length(); i++) {
-			int num = s.charAt(i) - 'a' + 1;
-			hash += num * Math.pow(31, i);
+			long num = s.charAt(i) - 'a' + 1;
+			hash += num * (long) Math.pow(31, i);
 		}
 		System.out.println(hash);
 	}
