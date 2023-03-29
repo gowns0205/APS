@@ -1,62 +1,83 @@
-import java.util.*;
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.util.LinkedList;
+import java.util.Queue;
+import java.util.StringTokenizer;
 
 public class Main {
-	static int N, M;
-	static int[][] map;
-	static int[] dr = {0,0,1,-1};
-	static int[] dc = {1,-1,0,0};
-	public static void main(String[] args) throws Exception {
-		StringBuilder sb = new StringBuilder();
+	static int[][] box;
+	static int[] dx = { 1, -1, 0, 0 };
+	static int[] dy = { 0, 0, 1, -1 };
+	static boolean[][] visited;
+
+	public static void main(String[] args) throws IOException {
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-		StringTokenizer MN = new StringTokenizer(br.readLine());
-		M = Integer.parseInt(MN.nextToken());
-		N = Integer.parseInt(MN.nextToken());
-		map = new int[N][M];
-		Queue<int[]> queue = new LinkedList<>();
-		for (int i = 0; i < N; i++) {
-			StringTokenizer st = new StringTokenizer(br.readLine());
-			for (int j = 0; j < M; j++) {
-				map[i][j] = Integer.parseInt(st.nextToken());
-				if (map[i][j] == 1) queue.add(new int[] {i, j});
+		StringTokenizer st = new StringTokenizer(br.readLine());
+		int M = Integer.parseInt(st.nextToken());
+		int N = Integer.parseInt(st.nextToken());
+		box = new int[N][M];
+		visited = new boolean[N][M];
+		Queue<Node> queue = new LinkedList<>();
+		for (int r = 0; r < N; r++) {
+			st = new StringTokenizer(br.readLine());
+			for (int c = 0; c < M; c++) {
+				box[r][c] = Integer.parseInt(st.nextToken());
+				if (box[r][c] == 1) {
+					queue.add(new Node(r, c));
+					visited[r][c] = true;
+				}
 			}
 		}
-		
-		if (check()) sb.append(0);
-		else {
-			int day = -1;
-			while (!queue.isEmpty()) {
-				day++;
-				int size = queue.size();
-				for (int i = 0; i < size; i++) {
-					int[] cur = queue.poll();
-					for (int k = 0; k < 4; k++) {
-						int nr = cur[0] + dr[k];
-						int nc = cur[1] + dc[k];
-						if (inBnd(nr, nc) && map[nr][nc] == 0) {
-							map[nr][nc] = 1;
-							queue.add(new int[] {nr, nc});
-						}
+		int day = 0;
+		while (true) {
+			if (queue.isEmpty())
+				break;
+			int size = queue.size();
+			while (size-- > 0) {
+				Node curNode = queue.poll();
+				int r = curNode.r;
+				int c = curNode.c;
+				box[r][c] = 1;
+				for (int i = 0; i < 4; i++) {
+					int dr = r + dy[i];
+					int dc = c + dx[i];
+					if (dr < 0 || dr > N - 1 || dc < 0 || dc > M - 1)
+						continue;
+					if (!visited[dr][dc] && box[dr][dc] == 0) {
+						queue.add(new Node(dr, dc));
+						visited[dr][dc] = true;
 					}
 				}
 			}
-			if (check()) sb.append(day);
-			else sb.append(-1);
+			day++;
 		}
-		System.out.println(sb);
-	}
-	
-	private static boolean check() {
-		for (int i = 0; i < N; i++) {
-			for (int j = 0; j < M; j++) {
-				if (map[i][j] == 0) return false;
+		boolean result = true;
+		for (int r = 0; r < N; r++) {
+			for (int c = 0; c < M; c++) {
+				if (box[r][c] == 0) {
+					result = false;
+					break;
+				}
 			}
 		}
-		return true;
+		if (!result)
+			System.out.println(-1);
+		else if (day == 0)
+			System.out.println(0);
+		else
+			System.out.println(day - 1);
 	}
-	
-	private static boolean inBnd(int r, int c) {
-		if (r >= 0 && r < N && c >= 0 && c < M) return true;
-		return false;
+
+	static class Node {
+		int r;
+		int c;
+
+		public Node(int r, int c) {
+			super();
+			this.r = r;
+			this.c = c;
+		}
 	}
+
 }
