@@ -8,7 +8,7 @@ import java.util.StringTokenizer;
 
 public class Main {
 	static ArrayList<Integer>[] edges;
-	static Queue<Integer> queue = new LinkedList<>();
+//	static Queue<Integer> queue = new LinkedList<>();
 	static boolean[] visited;
 	static int hacking = 0;
 
@@ -47,13 +47,14 @@ public class Main {
 	}
 
 	private static void BFS(int i) {
+		Queue<Integer> queue = new LinkedList<>();
 		hacking = 0;
 		queue.add(i);
 		visited[i] = true;
 		while (!queue.isEmpty()) {
 			int curCom = queue.poll();
 			hacking++;
-			visited[curCom] = true;
+//			visited[curCom] = true;
 			for (int nextCom : edges[curCom]) {
 				if (!visited[nextCom]) {
 					visited[nextCom] = true;
