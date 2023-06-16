@@ -31,6 +31,8 @@ public class Main {
 			}
 			if (isPrime) {
 				pList.add(i);
+				// M이 2보다 큰 수일 때, M보다 작은 소수가 리스트에 담기지 않는 걸 고려해야 함 
+				// 이를 위해 i=1 부터 모든 소수를 구하되, 현재 소수 i가 M보다 큰 경우에만 출력 
 				if (i >= M)
 					sb.append(i + "\n");
 			}
