@@ -26,6 +26,8 @@ public class Main {
 		int height = 0;
 		int resultTime = Integer.MAX_VALUE;
 		// h : 현재 높이
+		// 기록 된 최소 높이부터 최대 높이까지 전부 평평하게 만들어보면서
+		// 최소 시간과 그에 따른 최대 높이를 찾는다. 
 		for (int h = min; h <= max; h++) {
 			int block = B;
 			int time = 0;
@@ -40,6 +42,8 @@ public class Main {
 					}
 				}
 			}
+			// 시간이 같을때도 더 높이가 높은 값으로 결과를 업데이트 해줬어야 되는데 
+			// 그러지 못해서 틀리고 있었다.
 			if (time <= resultTime && block >= 0) {
 				resultTime = time;
 				height = h;
