@@ -28,7 +28,7 @@ public class Main {
 			return dp[cur];
 		}
 		// 막혔던 이유 
-		// 바로 10007의 나머지로 처리하면서 더하지 않으면 나중에는 long 숫자 범위도 초과해버린다. 
+		// 바로 10007의 나머지로 처리하면서 더하지 않으면 long 숫자 범위도 초과해버린다. 
 		dp[cur] = (fillTile(cur - 1) + fillTile(cur - 2))%10007;
 		return dp[cur];
 	}
