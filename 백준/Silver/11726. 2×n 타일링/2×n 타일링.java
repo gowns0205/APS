@@ -23,7 +23,7 @@ public class Main {
 			dp[1] = 2;
 			return 2;
 		}
-
+                // dp 배열에 하위 인덱스의 값을 저장하면서 진행하므로 호출 회수를 현저히 줄일 수 있다.
 		if (dp[cur] != 0) {
 			return dp[cur];
 		}
