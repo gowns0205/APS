@@ -17,27 +17,22 @@ public class Main {
 			A[i] = Integer.parseInt(st.nextToken());
 		}
 		Arrays.sort(A);
-		boolean[] visited = new boolean[N];
-		combination(0, 0, visited, 0);
+		DFS(0, 0);
+		// 목표하는 합 S가 0인 경우, 공집합인 경우를 빼줘야 함 
+		// 크기가 양수인 부분수열 구하는 것이기 때문
+		cases = (S == 0) ? cases - 1 : cases;
 		System.out.println(cases);
 	}
 
-	static void combination(int depth, int start, boolean[] visited, int sum) {
+	static void DFS(int depth, int sum) {
 		if (depth == N) {
+			if (sum == S)
+				cases++;
 			return;
 		}
-		for (int i = start; i < N; i++) {
-			if (!visited[i]) {
-				visited[i] = true;
-				int curSum = 0;
-				curSum += sum;
-				curSum += A[i];
-				if (curSum == S)
-					cases++;
-//				System.out.println(A[i] + " , " + curSum + " , " + S);
-				combination(depth + 1, i + 1, visited, curSum);
-				visited[i] = false;
-			}
-		}
+		// 트리에서 현재 노드를 선택하는 경우
+		DFS(depth + 1, sum + A[depth]);
+		// 선택하지 않고 건너뛰는 경우
+		DFS(depth + 1, sum);
 	}
 }
