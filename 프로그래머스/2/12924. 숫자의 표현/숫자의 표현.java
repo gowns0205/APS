@@ -1,26 +1,13 @@
 import java.util.*;
 
+// 어떤 자연수를 연속된 수의 합으로 표현하는 방법의 수와, 해당 자연수의 홀수 약수 개수는 같다. 
 class Solution {
-    static int N;
-    static int answer; 
-    
-    static void DFS(int cur, int sum){
-        sum += cur;
-        if(sum>N){
-            return;
-        }
-        if(sum==N){
-            answer++;
-            return;
-        }
-        DFS(cur+1, sum);
-    }
     
     public int solution(int n) {
-        N = n;
-        answer = 1;
-        for(int start = 1; start <= n/2; start++){
-            DFS(start, 0);
+        int answer = 0;
+        for(int i = 1; i <= n; i+=2){
+            if(n%i==0)
+                answer++;
         }
         return answer;
     }
