@@ -1,51 +1,52 @@
 import java.util.*;
 
 class Solution {
-    static int min = Integer.MAX_VALUE;
     static int[] dx = {-1, 0, 1, 0};
     static int[] dy = {0, 1, 0, -1};
+    static int[][] dis;
     
     static void BFS(int[][] maps){
         int n = maps.length;
         int m = maps[n-1].length;
-        boolean[][] visited = new boolean[n][m];
+        dis = new int[n][m];
         Queue<Node> queue = new LinkedList<>();
-        queue.add(new Node(0,0,1));
+        queue.add(new Node(0,0));
+        dis[0][0] = 1;
         while(!queue.isEmpty()){
             Node cur = queue.poll();
+            // BFS니까 맨 처음 도착하는 노드가 최단경로 타고 왔다. 
             if(cur.r==n-1 && cur.c == m-1){
-                if(cur.depth<min)
-                    min = cur.depth;
+                return;
             }
             for(int i=0; i<4; i++){
                 int dr = cur.r + dx[i];
                 int dc = cur.c + dy[i];
+                // n, m 실수하지 말자...
                 if(dr<0 || dr> n-1 || dc<0 || dc>m-1)
                     continue;
-                if(!visited[dr][dc] && maps[dr][dc]==1){
-                    visited[dr][dc] = true;
-                    queue.add(new Node(dr,dc,cur.depth+1));
+                if(maps[dr][dc]==1 && dis[dr][dc]==0){
+                    queue.add(new Node(dr,dc));
+                    dis[dr][dc] = dis[cur.r][cur.c] + 1;
                 }
             }
         }
-}   
+    }   
     
     public int solution(int[][] maps) {
         BFS(maps);
-        if(min>10000)
+        int n = maps.length;
+        int m = maps[n-1].length;
+        if(dis[n-1][m-1]==0)
             return -1;
         else
-            return min;
+            return dis[n-1][m-1];
     }
     
-
-    
     static class Node {
-        int r, c, depth;
-        Node(int r, int c, int depth) {
+        int r, c;
+        Node(int r, int c) {
             this.r = r;
             this.c = c;
-            this.depth = depth;
         }
     }
 }
