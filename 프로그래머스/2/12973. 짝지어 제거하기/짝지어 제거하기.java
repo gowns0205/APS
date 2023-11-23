@@ -12,16 +12,13 @@ class Solution
                 stack.push(cur);
                 continue;
             }
-            if(stack.peek()==cur){
+            if(stack.peek() == cur){
                 stack.pop();
                 continue;
             }
             stack.push(cur);
         }
         
-        if(stack.isEmpty())
-            return 1;
-        else
-            return 0;
+        return stack.size() == 0 ? 1 : 0;
     }
 }
